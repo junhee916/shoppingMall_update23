@@ -1,12 +1,32 @@
 const mongoose = require('mongoose')
 
-const options = {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex : true
+// const options = {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//     useCreateIndex : true
+// }
+//
+// mongoose
+//     .connect(process.env.MONGODB_URI, options)
+//     .then(_ => console.log("connected mongodb"))
+//     .catch(err => console.log(err))
+
+const connectDB = async function(){
+
+    try{
+        mongoose.connect(process.env.MONGODB_URI, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            useCreateIndex : true
+        })
+
+        console.log("connect mongodb...")
+    }
+    catch(err){
+        console.log(err.message)
+
+        process.exit(1)
+    }
 }
 
-mongoose
-    .connect(process.env.MONGODB_URI, options)
-    .then(_ => console.log("connected mongodb"))
-    .catch(err => console.log(err))
+module.exports = connectDB
